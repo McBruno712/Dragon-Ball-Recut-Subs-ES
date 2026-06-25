@@ -61,3 +61,36 @@ def test_translate_text_preserves_known_casing(glossary_path: Path):
 def test_translate_text_empty_returns_empty(glossary_path: Path):
     g = load_glossary(glossary_path)
     assert translate_text("", g) == ""
+
+
+from dbsubs_lat.translator import split_long_line
+
+
+def test_split_long_line_short_passes_through():
+    assert split_long_line("Hola mundo", max_chars=42) == "Hola mundo"
+
+
+def test_split_long_line_splits_on_space():
+    long_text = (
+        "Esta es una línea muy larga que necesita ser dividida en dos renglones "
+        "para que entre bien en pantalla"
+    )
+    out = split_long_line(long_text, max_chars=42)
+    assert "\n" in out
+    for piece in out.split("\n"):
+        assert len(piece) <= 42
+
+
+def test_split_long_line_handles_no_spaces():
+    out = split_long_line("abcdefghij" * 6, max_chars=20)
+    assert "\n" in out
+    for piece in out.split("\n"):
+        assert len(piece) <= 20
+
+
+def test_split_long_line_handles_ass_tags():
+    out = split_long_line(
+        "{\\i1}Esta es una línea italizada bastante larga para dividir correctamente{\\i0}",
+        max_chars=30,
+    )
+    assert "\n" in out

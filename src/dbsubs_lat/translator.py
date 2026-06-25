@@ -78,3 +78,34 @@ def translate_text(text: str, glossary: dict[str, str]) -> str:
     if not text:
         return text
     return _apply_glossary(text, glossary)
+
+
+def split_long_line(text: str, max_chars: int = 42) -> str:
+    if len(text) <= max_chars or not text.strip():
+        return text
+    suffix_tag = ""
+    body = text
+    m = re.search(r"(\{[^}]*\})\s*$", body)
+    if m:
+        suffix_tag = m.group(1)
+        body = body[: m.start()].rstrip()
+    words = body.split(" ")
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = word if not current else current + " " + word
+        if len(candidate) <= max_chars:
+            current = candidate
+        else:
+            if current:
+                lines.append(current)
+            while len(word) > max_chars:
+                lines.append(word[:max_chars])
+                word = word[max_chars:]
+            current = word
+    if current:
+        lines.append(current)
+    out = "\n".join(lines)
+    if suffix_tag:
+        out += suffix_tag
+    return out

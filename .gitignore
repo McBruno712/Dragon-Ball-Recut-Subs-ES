@@ -6,3 +6,4 @@ venv/
 logs/
 *.tmp.ass
 .DS_Store
+src/dbsubs_lat.egg-info/

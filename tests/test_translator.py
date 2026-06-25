@@ -1,4 +1,7 @@
-from dbsubs_lat.translator import is_japanese
+import json
+from pathlib import Path
+import pytest
+from dbsubs_lat.translator import is_japanese, translate_text, load_glossary
 
 
 def test_is_japanese_detects_kana():
@@ -16,3 +19,45 @@ def test_is_japanese_rejects_pure_ascii():
 def test_is_japanese_handles_ass_override_tags():
     assert is_japanese("{\\i1}Tsukamo ze! Doragon Booru{\\i0}") is True
     assert is_japanese("{\\fad(300,0)}Kame...Hame...HA!") is False
+
+
+@pytest.fixture
+def glossary_path(tmp_path: Path) -> Path:
+    data = {
+        "Goku": "Gokú",
+        "Krillin": "Krilin",
+        "Dragon Balls": "Esferas del Dragón",
+        "Kamehameha": "Kamehameha",
+    }
+    p = tmp_path / "glosario.json"
+    p.write_text(json.dumps(data), encoding="utf-8")
+    return p
+
+
+def test_load_glossary_reads_json(glossary_path: Path):
+    g = load_glossary(glossary_path)
+    assert g["Goku"] == "Gokú"
+    assert g["Krillin"] == "Krilin"
+
+
+def test_translate_text_replaces_known_terms(glossary_path: Path):
+    g = load_glossary(glossary_path)
+    out = translate_text("Are you really Son Goku?", g)
+    assert "Gokú" in out
+
+
+def test_translate_text_handles_phrase_terms(glossary_path: Path):
+    g = load_glossary(glossary_path)
+    out = translate_text("We need the Dragon Balls!", g)
+    assert "Esferas del Dragón" in out
+
+
+def test_translate_text_preserves_known_casing(glossary_path: Path):
+    g = load_glossary(glossary_path)
+    out = translate_text("Kamehameha!", g)
+    assert "Kamehameha" in out
+
+
+def test_translate_text_empty_returns_empty(glossary_path: Path):
+    g = load_glossary(glossary_path)
+    assert translate_text("", g) == ""

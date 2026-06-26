@@ -1,22 +1,9 @@
-# dbsubs-lat
+# Dragon Ball Recut — Subs en Español Latino
 
-Translates the English ASS subtitles embedded in the fanmade **Dragon Ball Recut v2** `.mkv` collection to Latin-American Spanish.
+Subtítulos en español latino para la colección fanmade **Dragon Ball Recut v2** (`.mkv`).
 
-Outputs a separate `*.ES.ass` next to each source video. The `.mkv` files are never modified.
+Los subs ASS en inglés vienen embebidos en cada video. Acá se traduce cada episodio y se exporta un archivo `*.ES.ass` junto al video original. Los `.mkv` no se tocan.
 
-## Usage
+## Episodios
 
-```bash
-cd ~/repos/dbsubs-lat
-source venv/bin/activate
-python -m dbsubs_lat.cli \
-  --videos-dir "/home/mcbruno712/Videos/Películas/Dragon Ball Recut (Complete) v2" \
-  --pilot E01
-```
-
-## Layout
-
-- `src/dbsubs_lat/` — source code
-- `data/glosario_latino.json` — proper-noun glossary
-- `tests/` — pytest suite
-- `logs/` — per-episode processing reports (gitignored)
+Cada episodio se publica con su subtítulo traducido, listo para cargar junto al video.

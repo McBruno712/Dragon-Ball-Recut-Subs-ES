@@ -1,9 +1,8 @@
 # Dragon Ball Recut — Subs en Español Latino
 
-Subtítulos en español latino para la colección fanmade **Dragon Ball Recut v2** (`.mkv`).
+Subtítulos en español latino para la reedición fanmade sin relleno **Dragon Ball Recut v2** (`.mkv`).
 
-Los subs ASS en inglés vienen embebidos en cada video. Acá se traduce cada episodio y se exporta un archivo `*.ES.ass` junto al video original. Los `.mkv` no se tocan.
+Los subs ASS en inglés vienen embebidos en cada video. Acá se tradujo cada episodio y se exportó un archivo `*.ES.ass`.
 
-## Episodios
-
-Cada episodio se publica con su subtítulo traducido, listo para cargar junto al video.
+La traducción se hizo con Minimax M3, teniendo cuidados de usar los mismos nombres en español que las traducciones latinas oficiales, no incluir palabras obscenas y que el timing se mantenga sincronizado. 
+Por razones de copyright no puedo incluir los episodios aquí pero pueden ser encontrados facilmente en torrent.

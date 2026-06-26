@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+logs/
+*.tmp.ass
+.DS_Store
+src/dbsubs_lat.egg-info/
